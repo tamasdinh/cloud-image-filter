@@ -1,48 +1,58 @@
-# Udagram Image Filtering Microservice
+# Image filtering microservice
 
-Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
+## Table of Contents
 
-The project is split into three parts:
-1. [The Simple Frontend](https://github.com/udacity/cloud-developer/tree/master/course-02/exercises/udacity-c2-frontend)
-A basic Ionic client web application which consumes the RestAPI Backend. [Covered in the course]
-2. [The RestAPI Backend](https://github.com/udacity/cloud-developer/tree/master/course-02/exercises/udacity-c2-restapi), a Node-Express server which can be deployed to a cloud service. [Covered in the course]
-3. [The Image Filtering Microservice](https://github.com/udacity/cloud-developer/tree/master/course-02/project/image-filter-starter-code), the final project for the course. It is a Node-Express application which runs a simple script to process images. [Your assignment]
+* [Project Goals](#Project-goals)
+* [Getting Started](#Getting-started)
+* [Built with](#Built-with)
+* [Authors](#Authors)
+* [Acknowledgments](#Acknowledgments)
 
-## Tasks
+## Project goals
 
-### Setup Node Environment
+The goal of the project was to build a simple image filtering API deployed to a cloud provider. Key functionalities built:
+- ```API applies a simple B&W filter to an image url sent via URL query```
 
-You'll need to create a new node server. Open a new terminal within the project directory and run:
+The app was built from a boilerplate Express.js script provided in the course.
 
-1. Initialize a new project: `npm i`
-2. run the development server with `npm run dev`
+## Getting Started
 
-### Create a new endpoint in the server.ts file
+You can clone the project files by running
 
-The starter code has a task for you to complete an endpoint in `./src/server.ts` which uses query parameter to download an image from a public URL, filter the image, and return the result.
-
-We've included a few helper functions to handle some of these concepts and we're importing it for you at the top of the `./src/server.ts`  file.
-
-```typescript
-import {filterImageFromURL, deleteLocalFiles} from './util/util';
+```bash
+git clone https://github.com/tamasdinh/cloud-image-filter.git
 ```
 
-### Deploying your system
+in your command line. This will download the entire repository to your computer, into a subfolder named ```cloud-image-filter``` in the folder from which you initiated cloning. Alternatively, you can download the repo as a ```zip``` file from the repo page.
 
-Follow the process described in the course to `eb init` a new application and `eb create` a new environment to deploy your image-filter service! Don't forget you can use `eb deploy` to push changes.
+Once you have the repo on your local machine, first you have to install dependencies by ```cd```-ing into the project folder and running:
+```bash
+npm install
+```
 
-## Stand Out (Optional)
+You should obtain the url of an image on the web, e.g.:
+* [Adorable kitten photo](https://timedotcom.files.wordpress.com/2019/03/kitten-report.jpg)
 
-### Refactor the course RESTapi
+Once you have dependencies installed and a photo link obtained:
 
-If you're feeling up to it, refactor the course RESTapi to make a request to your newly provisioned image server.
+1. Try the API locally:
+    - in the project folder, run ```npm run dev``` - this will start the development server locally at ```http://localhost:8082```
+    - use Postman or any other method to send an HTTP GET request to the local server, e.g. you can paste ```localhost:8082/filteredimage?image_url=https://timedotcom.files.wordpress.com/2019/03/kitten-report.jpg``` into the address bar of your favorite browser
+    - you will get back the filtered image of the adorable kitten photo mentioned as example above
 
-### Authentication
+2. Try the deployed service on AWS:
+    - use Postman or any other method to send an HTTP GET request to ```AWS-Image-filter-dev.us-east-1.elasticbeanstalk.com```, e.g. you can paste ```AWS-Image-filter-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://timedotcom.files.wordpress.com/2019/03/kitten-report.jpg``` into the address bar of your favorite browser
+    - you will get back the filtered image of the adorable kitten photo mentioned as example above
 
-Prevent requests without valid authentication headers.
-> !!NOTE if you choose to submit this, make sure to add the token to the postman collection and export the postman collection file to your submission so we can review!
+```ENJOY!```
 
-### Custom Domain Name
+## Built With
 
-Add your own domain name and have it point to the running services (try adding a subdomain name to point to the processing server)
-> !NOTE: Domain names are not included in AWS’ free tier and will incur a cost.
+* ```Javascript``` - :)
+* [Node.js and Node Package Manager](https://nodejs.org/en/) - for handling dependencies and project configuration
+* [Express.js](https://expressjs.com) - API server framework used
+* [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) - "Easy" app deployment for several frameworks, including Node.js.
+
+## Authors
+
+* **Tamas Dinh** - [LinkedIn profile](https://www.linkedin.com/in/tamasdinh/)
