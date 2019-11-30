@@ -1,6 +1,7 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
+import { resolve } from 'bluebird';
 
 (async () => {
 
@@ -27,7 +28,24 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // RETURNS
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
 
-  /**************************************************************************** */
+  app.get('/filteredimage', (req: Request, res: Response) => {
+    const { image_url } = req.query
+
+    if (!image_url) {
+      res.status(400).send('No image url added to query. Please resubmit query, including image URL.')
+    } else { 
+      filterImageFromURL(image_url)
+      .then((filteredImage) => {
+        res.status(200).sendFile(filteredImage, () => {
+          deleteLocalFiles([filteredImage])
+        })
+      })
+      .catch(err => {
+        res.status(404).send(err)
+      })
+    }
+
+  })
 
   //! END @TODO1
   
